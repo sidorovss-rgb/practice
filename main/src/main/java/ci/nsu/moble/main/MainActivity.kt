@@ -1,13 +1,16 @@
 package ci.nsu.moble.main
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
+import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,10 +50,21 @@ fun MainScreenActivity(modifier: Modifier = Modifier) {
         modifier = modifier.fillMaxSize().padding(16.dp),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
+
         // TODO:  нужно добавить  TextField
+        OutlinedTextField(
+            value = text,
+            onValueChange = { text = it },
+            label = { Text("Введите текст") },
+            modifier = Modifier.fillMaxWidth()
+        )
         Button(
             onClick = {
                 // TODO:  нужно добавить кнопку которая по клику открывает второе активити через интент
+                val intent = Intent(context, SecondActivity::class.java).apply {
+                    putExtra("text_data", text)
+                }
+                context.startActivity(intent)
             },
             modifier = Modifier.padding(top = 16.dp)
         ) {
@@ -58,6 +72,7 @@ fun MainScreenActivity(modifier: Modifier = Modifier) {
         }
     }
 }
+
 
 @Preview(showBackground = true)
 @Composable
